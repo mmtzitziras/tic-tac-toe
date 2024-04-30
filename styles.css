@@ -3,3 +3,89 @@
     margin: 0;
     box-sizing: border-box ;
 }
+
+body {
+    background-color: #ffe749;
+    
+}
+
+h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    color: #019dcd;
+}
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 70px;
+    
+}
+
+.board{
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.board .cell {
+    width: 200px;
+    height: 200px;
+    background-color: #019dcd;
+    color: #019dcd;
+}
+
+.turn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    background-color: #019dcd;
+    width: 600px;
+    margin: 5px auto;
+    color: #ffe749;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.new-game{
+    
+    text-align: center;
+    background-color: #019dcd;
+    width: 600px;
+    margin: 5px auto;
+    
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.new-game > button{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3rem;
+    background-color: #019dcd;
+    color: #ffe749;
+    border: 0;
+}
+
+.new-game>button:hover {
+    background-color: #ffe749;
+    color: #019dcd;
+    border-radius: 10px;
+    padding: 0 5px;
+}
+
+.cell:disabled{
+    color: #ffe749;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 5rem;
+}
+
+.game-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
