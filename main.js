@@ -6,7 +6,7 @@ function gameBoard(){
     const board = [];
 
     for (let i=0;i<rows*columns;i++){
-        board[i] = "E";
+        board[i] = " ";
     }
 
 
@@ -20,7 +20,7 @@ function gameBoard(){
 
     const dropMark = (cell, player) => {
 
-        const availableCells = board.filter((cell) => (cell === "E")).length;
+        const availableCells = board.filter((cell) => (cell === " ")).length;
         console.log(availableCells);
 
         if (availableCells === 0){return;}
@@ -87,7 +87,7 @@ function GameController(){
             if (
                 currentBoard[comb[0]] == currentBoard[comb[1]] &&
                 currentBoard[comb[1]] == currentBoard[comb[2]] &&
-                currentBoard[comb[0]] != 'E'
+                currentBoard[comb[0]] != " "
             ) {
                 return true;
             }
@@ -96,16 +96,12 @@ function GameController(){
         return false;
     }
 
+    const getWinner = () => winner;
+
     const announceWinner =(winner) => {
-        const winnerDiv = document.querySelector(".game-info");
-        const winnerElem = document.createElement('div');
-        winnerElem.classList.add("winner");
-        winnerElem.textContent = winner;
-        winnerDiv.appendChild(winnerElem);
-        const boardDiv = document.querySelector(".board");
-        const btns = boardDiv.querySelectorAll(button);
-        btns.forEach((btn) => btn.disabled = true)
-    }
+        const playerTurnDiv = document.querySelector('.turn');
+        playerTurnDiv.textContent = "THE WINNER IS " + winner;
+        }
 
     const playRound = (cell) => {
 
@@ -124,7 +120,8 @@ function GameController(){
     return {
         playRound,
         getActivePlayer,
-        getBoard : board.getBoard()
+        getBoard : board.getBoard(),
+        getWinner
     };
 }
 
@@ -151,10 +148,14 @@ function ScreenController(){
             cellButton.textContent = cell;
             cellButton.addEventListener("click", function(){
                 game.playRound(index);
-                updateScreen();   
+                updateScreen();
+                if (game.getWinner() !== ""){
+                    disableAllButtons();
+                    playerTurnDiv.textContent = "THE WINNER IS " + game.getWinner()
+                }   
             }
             );
-            if (cellButton.textContent !== "E"){
+            if (cellButton.textContent !== " "){
                 cellButton.disabled = true;
             }
             boardDiv.appendChild(cellButton);
@@ -162,6 +163,9 @@ function ScreenController(){
     }
 
     const disableAllButtons = () =>{
+
+        boardDiv.textContent = "";
+
         const board = game.getBoard;
         const activePlayer = game.getActivePlayer();
 
@@ -172,14 +176,7 @@ function ScreenController(){
             const cellButton = document.createElement("button");
             cellButton.classList.add("cell");
             cellButton.textContent = cell;
-            cellButton.addEventListener("click", function(){
-                game.playRound(index);
-                updateScreen();   
-            }
-            );
-            if (cellButton.textContent !== "E"){
-                cellButton.disabled = true;
-            }
+            cellButton.disabled = true;
             boardDiv.appendChild(cellButton);
         });      
     }
